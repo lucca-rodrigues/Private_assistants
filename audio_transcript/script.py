@@ -45,19 +45,13 @@ class TalkingLLM():
       if "temp.wav" in os.listdir(): os.remove("temp.wav")
       wav_file = wave.open("test.wav", 'wb')
       wav_file.setnchannels(self.channels)
-      wav_file.setsampwidth(2)  # Corrigido para usar a largura de amostra para int16 diretamente
+      wav_file.setsampwidth(2)
       wav_file.setframerate(self.samplerate)
       wav_file.writeframes(np.array(self.audio_data, dtype=self.dtype))
       wav_file.close()
 
       result = self.whisper.transcribe("test.wav", fp16=False)
       print("Usuário:", result["text"])
-
-      # response = self.llm.invoke(result["text"])
-      # response = self.agent.invoke(result["text"])
-      # print("AI:", response)
-      # self.llm_queue.put(response["output"])
-
         
     def convert_and_play(self):
         tts_text = ''
@@ -106,7 +100,7 @@ class TalkingLLM():
                 return lambda k: f(l.canonical(k))
 
             hotkey = keyboard.HotKey(
-                keyboard.HotKey.parse('<cmd>'),
+                keyboard.HotKey.parse('<ctrl>'),
                 on_activate)
             with keyboard.Listener(
                     on_press=for_canonical(hotkey.press),
