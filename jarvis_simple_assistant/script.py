@@ -1,8 +1,9 @@
 import os
+import time
 from AppKit import NSSpeechSynthesizer
 import speech_recognition as sr
-import webbrowser
 import wikipedia
+import subprocess
 
 wikipedia.set_lang("pt")
 
@@ -26,8 +27,22 @@ def get_command():
         return "None"
     return command
 
+def open_url(url):
+    firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox"
+    subprocess.call([firefox_path, url])
+
+def open_spotify():
+    spotify_path = "/Applications/Spotify.app/Contents/MacOS/Spotify"
+    subprocess.call([spotify_path])
+
 if __name__ == '__main__':
     speak("Jarvis ao seu dispor!")
+    time.sleep(5)
+    
+    speak("Como eu posso te ajudar hoje?")
+    time.sleep(5)
+
+
     while True:
         command = get_command().lower()
         if 'wikipédia' in command:
@@ -40,20 +55,20 @@ if __name__ == '__main__':
         elif 'como você vai' in command:
             speak("Olá amigo, eu vou bem, obrigado por perguntar")
         elif 'abrir youtube' in command:
-            speak("Abrindo o Navegador com o youtube")
-            webbrowser.open("youtube.com")
+            speak("Abrindo o YouTube no Firefox")
+            open_url('https://www.youtube.com')
         elif 'abrir o google' in command:
-            speak("Abrindo o google")
-            webbrowser.open("google.com")
+            speak("Abrindo o Google no Firefox")
+            open_url('https://www.google.com')
         elif 'abrir github' in command:
-            speak("Abrindo o github")
-            webbrowser.open("github.com")
+            speak("Abrindo o GitHub no Firefox")
+            open_url('https://github.com')
         elif 'abrir o stackoverflow' in command:
-            speak("Abrindo o stackoverflow")
-            webbrowser.open("stackoverflow.com")
+            speak("Abrindo o Stack Overflow no Firefox")
+            open_url('https://stackoverflow.com')
         elif 'abrir o spotify' in command:
-            speak("Abrindo o spotify")
-            webbrowser.open("https://open.spotify.com/intl-pt")
+            speak("Abrindo o Spotify")
+            open_url('https://open.spotify.com/intl-pt')
         elif 'tchau' in command:
             speak("Tchau Tchau")
             exit(0)
