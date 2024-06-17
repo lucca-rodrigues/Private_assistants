@@ -28,7 +28,6 @@ def get_command():
 
 if __name__ == '__main__':
     speak("Jarvis ao seu dispor!")
-    speak("Como eu posso te ajudar?")
     while True:
         command = get_command().lower()
         if 'wikipédia' in command:
